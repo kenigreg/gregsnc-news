@@ -27,8 +27,8 @@ class ArticlesPage extends Component {
     const { loggedInUser } = this.props;
     return (
       <div>
-        <p>You are logged-in as: {loggedInUser}</p>
-        <h3>Headlines</h3>
+        <br />
+        <h3 className="text-center">Headlines</h3>
         <br />
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
         <br />

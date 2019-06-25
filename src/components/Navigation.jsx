@@ -46,19 +46,19 @@ class Navigation extends React.Component {
                 </Link>
               </NavDropdown>
             </Nav>
-            <form className="form-inline">
-              <div className="input-group">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">@</span>
+            {!loggedInUser && (
+              <form className="form-inline">
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">@</span>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control mr-sm-2"
+                    placeholder="Username"
+                    onChange={this.handleUserName}
+                  />
                 </div>
-                <input
-                  type="text"
-                  className="form-control mr-sm-2"
-                  placeholder="Username"
-                  onChange={this.handleUserName}
-                />
-              </div>
-              {!loggedInUser && (
                 <button
                   type="button"
                   className="btn btn-outline-success"
@@ -69,17 +69,17 @@ class Navigation extends React.Component {
                 >
                   Log in
                 </button>
-              )}
-              {loggedInUser && (
-                <button
-                  type="button"
-                  className="btn btn-outline-success"
-                  onClick={this.handleSignOut}
-                >
-                  Log out
-                </button>
-              )}
-            </form>
+              </form>
+            )}
+            {loggedInUser && (
+              <button
+                type="button"
+                className="btn btn-outline-success"
+                onClick={this.handleSignOut}
+              >
+                Log out
+              </button>
+            )}
           </Navbar.Collapse>
         </Navbar>
       </>

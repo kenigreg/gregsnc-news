@@ -21,7 +21,7 @@ class NavigationBar extends React.Component {
     return (
       <>
         <Navbar bg="light" expand="lg">
-          <Link to="/">
+          <Link to="/articles">
             <Navbar.Brand>
               <img
                 alt="NCLogo"
@@ -36,7 +36,7 @@ class NavigationBar extends React.Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Link to="/">
+              <Link to="/articles">
                 <li className="nav-link">Home</li>
               </Link>
               <Link to="/articles">
@@ -54,21 +54,22 @@ class NavigationBar extends React.Component {
                 </Link>
               </NavDropdown>
             </Nav>
-            <Form inline>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-                </InputGroup.Prepend>
-              </InputGroup>
-              <FormControl
-                type="text"
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                className="mr-sm-2"
-                onChange={this.handleUserName}
-              />
-              {!loggedInUser && (
+            {!loggedInUser && (
+              <Form inline>
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+                  </InputGroup.Prepend>
+                </InputGroup>
+                <FormControl
+                  type="text"
+                  placeholder="Username"
+                  aria-label="Username"
+                  aria-describedby="basic-addon1"
+                  className="mr-sm-2"
+                  onChange={this.handleUserName}
+                />
+
                 <Button
                   variant="outline-success"
                   onClick={e => {
@@ -78,13 +79,13 @@ class NavigationBar extends React.Component {
                 >
                   Log in
                 </Button>
-              )}
-              {loggedInUser && (
-                <Button variant="outline-success" onClick={this.handleSignOut}>
-                  Log out
-                </Button>
-              )}
-            </Form>
+              </Form>
+            )}
+            {loggedInUser && (
+              <Button variant="outline-success" onClick={this.handleSignOut}>
+                Log out
+              </Button>
+            )}
           </Navbar.Collapse>
         </Navbar>
       </>

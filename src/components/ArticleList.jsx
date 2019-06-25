@@ -9,7 +9,10 @@ const ArticleList = props => {
     <div>
       {articles.map(article => {
         return (
-          <div key={`article${article.article_id}`} className="card">
+          <div
+            key={`article${article.article_id}`}
+            className="card border-dark mb-3"
+          >
             <div className="card-body">
               <Link to={`/articles/${article.article_id}`}>
                 <h4>Title: {article.title}</h4>
@@ -27,6 +30,7 @@ const ArticleList = props => {
           </div>
         );
       })}
+      <br />
     </div>
   );
 };

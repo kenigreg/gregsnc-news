@@ -6,7 +6,7 @@ import ArticlesPage from './components/ArticlesPage';
 import SingleArticle from './components/SingleArticle';
 import { Container } from 'react-bootstrap';
 import { getUsername } from './components/Api';
-// import User from './components/User';
+import User from './components/User';
 
 class App extends React.Component {
   state = { username: 'jessjelly', loggedIn: false };
@@ -26,6 +26,7 @@ class App extends React.Component {
         <Jumbo />
 
         <Container>
+          <User loggedInUser={username} />
           <Router>
             {loggedInUser && <p>You are logged-in</p>}
             <ArticlesPage path="/articles" loggedInUser={username} />

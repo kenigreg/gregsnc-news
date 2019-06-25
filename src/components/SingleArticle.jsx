@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getSingleArticle, patchArticle } from './Api';
 //import { Link } from '@reach/router';
 import Moment from 'react-moment';
+import CommentsByArticleId from './CommentsByArticleId';
 
 class SingleArticle extends Component {
   state = { article: {}, voteChange: 0 };
@@ -18,9 +19,9 @@ class SingleArticle extends Component {
     const { loggedInUser } = this.props;
     return (
       <div>
-        {loggedInUser && <p>You are logged-in as: {loggedInUser}</p>}
+        <br />
         {this.state.article && (
-          <article>
+          <article className="card border-dark mb-3">
             <div className="card-header">
               <h4>Title: {article.title}</h4>
 
@@ -49,7 +50,7 @@ class SingleArticle extends Component {
                     disabled={voteChange === -1}
                     onClick={() => this.handleVote(-1)}
                     type="button"
-                    className="btn btn-outline-danger float-right"
+                    className="btn btn-outline-warning float-right"
                   >
                     Downvote
                   </button>
@@ -58,6 +59,13 @@ class SingleArticle extends Component {
             </div>
           </article>
         )}
+        <br />
+
+        <CommentsByArticleId
+          articleId={this.props.article_id}
+          loggedInUser={this.props.loggedInUser}
+          article={article}
+        />
       </div>
     );
   }

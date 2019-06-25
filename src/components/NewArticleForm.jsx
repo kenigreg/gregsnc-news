@@ -9,32 +9,37 @@ class NewArticleForm extends Component {
     return (
       <div>
         <Container>
-          <form onSubmit={this.handleSubmit} className="form-inline">
+          <h4>Add an article</h4>
+          <form className="form-inline">
             <input
               placeholder="type article title here"
               type="text"
               onChange={this.handleChange}
               name="title"
-              required={true}
               className="form-control mr-sm-2"
+              required
             />
             <input
               placeholder="type article topic here"
               type="text"
               onChange={this.handleChange}
               name="topic"
-              required={true}
               className="form-control mr-sm-2"
+              required
             />
             <input
               placeholder="type your article here"
               type="text"
               onChange={this.handleChange}
               name="body"
-              required={true}
               className="form-control mr-sm-2"
+              required
             />
-            <button type="button" className="btn btn-outline-success">
+            <button
+              type="button"
+              className="btn btn-outline-success"
+              onClick={this.handleSubmit}
+            >
               Submit
             </button>
           </form>
