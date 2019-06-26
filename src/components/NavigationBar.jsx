@@ -99,8 +99,9 @@ class NavigationBar extends React.Component {
   };
 
   handleSignOut = event => {
+    const { logOutUser } = this.props;
     event.preventDefault();
-    this.props.logOutUser();
+    logOutUser();
     this.setState({ userInput: '' });
   };
 }

@@ -12,14 +12,25 @@ class User extends Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { loggedInUser } = this.props;
+    if (loggedInUser !== prevProps.loggedInUser) {
+      getUsers(loggedInUser).then(user => {
+        this.setState({ user });
+      });
+    }
+  }
+
   render() {
     const { user } = this.state;
     return (
       <div className="card bg-light border-dark mb-4">
-        <div className="card-body">
-          <p className="card-text">You are logged-in as: {user.username}</p>
-          <h5 className="card-title">User: {user.name}</h5>
-        </div>
+        {user && (
+          <div className="card-body">
+            <p className="card-text">You are logged-in as: {user.username}</p>
+            <h5 className="card-title">User: {user.name}</h5>
+          </div>
+        )}
       </div>
     );
   }

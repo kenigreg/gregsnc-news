@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import ArticleList from './ArticleList';
 import FilterArticleBy from './FilterArticleBy';
-import { sortArticles } from './Api';
+import { getArticles, sortArticles } from './Api';
+import NewArticleForm from './NewArticleForm';
 
 class ArticlesByTopic extends React.Component {
   state = { articles: [], sortBy: '' };
@@ -10,14 +10,9 @@ class ArticlesByTopic extends React.Component {
   componentDidMount() {
     const { topic } = this.props;
 
-    const url = 'https://gregs-ncnews.herokuapp.com/api/articles';
-    axios
-      .get(url, {
-        params: { topic: topic }
-      })
-      .then(({ data: { articles } }) => {
-        this.setState({ articles });
-      });
+    getArticles(topic).then(articles => {
+      this.setState({ articles });
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -25,14 +20,9 @@ class ArticlesByTopic extends React.Component {
     const { sortBy } = this.state;
 
     if (topic !== prevProps.topic) {
-      const url = 'https://gregs-ncnews.herokuapp.com/api/articles';
-      axios
-        .get(url, {
-          params: { topic }
-        })
-        .then(({ data: { articles } }) => {
-          this.setState({ articles });
-        });
+      getArticles(topic).then(articles => {
+        this.setState({ articles });
+      });
     }
     if (this.state.sortBy !== prevState.sortBy && this.state.sortBy) {
       sortArticles(sortBy).then(articles => {
@@ -43,22 +33,36 @@ class ArticlesByTopic extends React.Component {
 
   render() {
     const { articles } = this.state;
-
+    const { loggedInUser } = this.props;
     return (
       <div>
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
         <br />
-        {this.state.articles && (
+        {articles && (
           <ul>
             <ArticleList articles={this.state.articles} />
           </ul>
         )}
+        <br />
+        {loggedInUser && (
+          <NewArticleForm
+            loggedInUser={loggedInUser}
+            addArticle={this.addArticle}
+          />
+        )}
+        <br />
       </div>
     );
   }
 
   handleChange = event => {
     this.setState({ sortBy: event.target.value });
+  };
+
+  addArticle = article => {
+    this.setState(prevState => {
+      return { articles: [article, ...prevState.articles] };
+    });
   };
 }
 

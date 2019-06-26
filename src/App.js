@@ -12,7 +12,7 @@ import ArticlesByTopic from './components/ArticlesByTopic';
 class App extends React.Component {
   state = {
     username: 'jessjelly',
-    loggedIn: false,
+    loggedIn: true,
     topics: []
   };
 
@@ -22,9 +22,16 @@ class App extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { username } = this.state;
+    if (username !== prevState.username) {
+      this.handleLogIn();
+    }
+  }
+
   render() {
     const { username, topics } = this.state;
-    const { userInput, loggedInUser } = this.props;
+    const { userInput } = this.props;
 
     return (
       <div className="App">
@@ -36,22 +43,15 @@ class App extends React.Component {
           topics={topics}
         />
         <Jumbo />
-
         <Container>
           <User loggedInUser={username} />
           <Router>
-            {loggedInUser && <p>You are logged-in</p>}
             <ArticlesPage path="/articles" loggedInUser={username} />
-            {loggedInUser && <p>You are logged-in</p>}
             <SingleArticle
               path="/articles/:article_id"
               loggedInUser={username}
             />
-            <ArticlesByTopic
-              path={'/topics/:topic'}
-              loggedInUser={username}
-              topics={topics}
-            />
+            <ArticlesByTopic path={'/topics/:topic'} loggedInUser={username} />
           </Router>
         </Container>
       </div>
@@ -59,9 +59,12 @@ class App extends React.Component {
   }
 
   handleLogIn = userInput => {
-    getUsername(userInput).then(user => {
-      this.setState({ username: user.username, loggedIn: true });
-    });
+    const { loggedIn } = this.state;
+    if (loggedIn === false) {
+      getUsername(userInput).then(user => {
+        this.setState({ username: user.username, loggedIn: true });
+      });
+    }
   };
 
   logOutUser = event => {
@@ -72,5 +75,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-//  <User loggedInUser={username} />
