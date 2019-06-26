@@ -30,7 +30,6 @@ const ArticleList = props => {
           </div>
         );
       })}
-      <br />
     </div>
   );
 };

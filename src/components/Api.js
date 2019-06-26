@@ -39,7 +39,7 @@ export const addNewArticle = articleToPost => {
   });
 };
 
-export const patchArticle = (article_id, direction) => {
+export const patchArticleVotes = (article_id, direction) => {
   const myUrl = `https://gregs-ncnews.herokuapp.com/api/articles/${article_id}`;
 
   return axios
@@ -85,5 +85,12 @@ export const getCommentsByArticleId = articleId => {
   const url = `https://gregs-ncnews.herokuapp.com/api/articles/${articleId}/comments`;
   return axios.get(url).then(({ data: { comments } }) => {
     return comments;
+  });
+};
+
+export const getTopics = () => {
+  const url = 'https://gregs-ncnews.herokuapp.com/api/topics';
+  return axios.get(url).then(({ data: { topics } }) => {
+    return topics;
   });
 };

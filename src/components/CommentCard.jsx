@@ -3,10 +3,10 @@ import { patchComment, deleteComment } from './Api';
 import Moment from 'react-moment';
 
 class CommentCard extends React.Component {
-  state = { commentVoteChange: 0, commentChange: 0 };
+  state = { commentVoteChange: 0 };
 
   render() {
-    const { commentVoteChange, commentChange } = this.state;
+    const { commentVoteChange } = this.state;
     const { comment, loggedInUser } = this.props;
 
     return (
@@ -28,7 +28,7 @@ class CommentCard extends React.Component {
                 <button
                   disabled={commentVoteChange === 1}
                   onClick={() => this.handleVote(1)}
-                  className="btn btn-outline-success float-left"
+                  className="btn btn-outline-primary float-left"
                 >
                   Like comment
                 </button>
@@ -44,8 +44,7 @@ class CommentCard extends React.Component {
                 {loggedInUser === comment.author && (
                   <button
                     type="submit"
-                    disabled={commentChange === -1}
-                    onClick={() => this.handleDelete(comment.comment_id, -1)}
+                    onClick={() => this.handleDelete(comment.comment_id)}
                     className="btn btn-danger float-left"
                   >
                     delete comment
@@ -66,10 +65,7 @@ class CommentCard extends React.Component {
     patchComment(this.props.comment.comment_id, direction);
   };
 
-  handleDelete = (comment_id, direction) => {
-    this.setState(prevState => {
-      return { commentChange: prevState.commentChange + direction };
-    });
+  handleDelete = comment_id => {
     deleteComment(comment_id).then(this.props.commentToDelete(comment_id));
   };
 }

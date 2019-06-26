@@ -15,12 +15,12 @@ class NavigationBar extends React.Component {
   state = { userInput: '' };
 
   render() {
-    const { onSubmit, loggedInUser } = this.props;
+    const { onSubmit, loggedInUser, topics } = this.props;
     const { userInput } = this.state;
 
     return (
       <>
-        <Navbar bg="light" expand="lg">
+        <Navbar collapseOnSelect bg="light" expand="lg">
           <Link to="/articles">
             <Navbar.Brand>
               <img
@@ -33,8 +33,8 @@ class NavigationBar extends React.Component {
               {' NC News'}
             </Navbar.Brand>
           </Link>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <Link to="/articles">
                 <li className="nav-link">Home</li>
@@ -42,17 +42,20 @@ class NavigationBar extends React.Component {
               <Link to="/articles">
                 <li className="nav-link">Articles</li>
               </Link>
-              <NavDropdown title="Topics" id="basic-nav-dropdown">
-                <Link to="/topics/coding">
-                  <li className="nav-link">coding</li>
-                </Link>
-                <Link to="/topics/football">
-                  <li className="nav-link">football</li>
-                </Link>
-                <Link to="/topics/cooking">
-                  <li className="nav-link">cooking</li>
-                </Link>
-              </NavDropdown>
+              {topics && (
+                <NavDropdown title="Topics" id="collasible-nav-dropdown">
+                  {topics.map((topic, index) => {
+                    return (
+                      <NavDropdown.Item
+                        href={`/topics/${topic.slug}`}
+                        key={'T' + index}
+                      >
+                        {topic.slug}
+                      </NavDropdown.Item>
+                    );
+                  })}
+                </NavDropdown>
+              )}
             </Nav>
             {!loggedInUser && (
               <Form inline>

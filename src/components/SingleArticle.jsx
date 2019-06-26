@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { getSingleArticle, patchArticle } from './Api';
-//import { Link } from '@reach/router';
+import { getSingleArticle, patchArticleVotes } from './Api';
 import Moment from 'react-moment';
 import CommentsByArticleId from './CommentsByArticleId';
 
@@ -42,7 +41,7 @@ class SingleArticle extends Component {
                     disabled={voteChange === 1}
                     onClick={() => this.handleVote(1)}
                     type="button"
-                    className="btn btn-outline-success float-left"
+                    className="btn btn-outline-primary float-left"
                   >
                     Upvote
                   </button>
@@ -74,7 +73,7 @@ class SingleArticle extends Component {
     this.setState(prevState => {
       return { voteChange: prevState.voteChange + direction };
     });
-    patchArticle(article_id, direction);
+    patchArticleVotes(article_id, direction);
   };
 }
 
