@@ -36,7 +36,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Links to the Repo
 
-Front-end: https://github.com/kenigreg/gregs_NcNews.git;<br>
+Front-end: https://github.com/kenigreg/gregsnc-news;<br>
 Back-end: https://github.com/kenigreg/NC_News;<br>
 API: <br>
 
