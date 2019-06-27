@@ -33,7 +33,11 @@ class CommentsByArticleId extends React.Component {
         {this.state.comments && (
           <ul>
             <br />
-            <h5>{article.comment_count} comments</h5>
+            {comments.length <= 1 ? (
+              <h5>{comments.length} comment</h5>
+            ) : (
+              <h5>{comments.length} comments</h5>
+            )}
 
             {comments.map((comment, index) => {
               return (
@@ -55,6 +59,7 @@ class CommentsByArticleId extends React.Component {
           article_id={articleId}
           loggedInUser={loggedInUser}
         />
+        <br />
       </div>
     );
   }

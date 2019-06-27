@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSingleArticle, patchArticleVotes } from './Api';
+import { getSingleArticle, patchArticleVotes, deleteArticle } from './Api';
 import Moment from 'react-moment';
 import CommentsByArticleId from './CommentsByArticleId';
 
@@ -36,23 +36,33 @@ class SingleArticle extends Component {
               <h6>Article likes: {article.votes + voteChange}</h6>
               <br />
               {loggedInUser && (
-                <div>
+                <div className="d-flex justify-content-around">
                   <button
                     disabled={voteChange === 1}
                     onClick={() => this.handleVote(1)}
                     type="button"
-                    className="btn btn-outline-primary float-left"
+                    className="btn btn-outline-primary order-1"
                   >
-                    Upvote
+                    upvote
                   </button>
                   <button
                     disabled={voteChange === -1}
                     onClick={() => this.handleVote(-1)}
                     type="button"
-                    className="btn btn-outline-warning float-right"
+                    className="btn btn-outline-warning order-3"
                   >
-                    Downvote
+                    downvote
                   </button>
+
+                  {loggedInUser === article.author && (
+                    <button
+                      type="submit"
+                      onClick={() => this.handleDelete(article.article_id)}
+                      className="btn btn-danger order-2"
+                    >
+                      delete
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -74,6 +84,14 @@ class SingleArticle extends Component {
       return { voteChange: prevState.voteChange + direction };
     });
     patchArticleVotes(article_id, direction);
+  };
+
+  handleDelete = article_id => {
+    deleteArticle(article_id).then(
+      this.setState(prevState => {
+        return { article: {} };
+      })
+    );
   };
 }
 

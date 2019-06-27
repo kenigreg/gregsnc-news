@@ -96,3 +96,10 @@ export const getTopics = () => {
     return topics;
   });
 };
+
+export const deleteArticle = article_id => {
+  const dUrl = `https://gregs-ncnews.herokuapp.com/api/articles/${article_id}`;
+  return axios.delete(dUrl).then(({ data: { article } }) => {
+    return article;
+  });
+};

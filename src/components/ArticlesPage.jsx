@@ -14,11 +14,15 @@ class ArticlesPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { sortBy } = this.state;
-    if (this.state.sortBy !== prevState.sortBy && this.state.sortBy) {
+    const { sortBy, articles } = this.state;
+    if (sortBy !== prevState.sortBy && sortBy) {
       sortArticles(sortBy).then(articles => {
         this.setState({ articles });
       });
+    }
+
+    if (articles !== prevState.articles && articles) {
+      this.setState({ articles });
     }
   }
 
