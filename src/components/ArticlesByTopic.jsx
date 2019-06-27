@@ -33,7 +33,7 @@ class ArticlesByTopic extends React.Component {
 
   render() {
     const { articles } = this.state;
-    const { loggedInUser } = this.props;
+    const { loggedInUser, topic } = this.props;
     return (
       <div>
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
@@ -48,6 +48,7 @@ class ArticlesByTopic extends React.Component {
           <NewArticleForm
             loggedInUser={loggedInUser}
             addArticle={this.addArticle}
+            topic={topic}
           />
         )}
         <br />

@@ -6,6 +6,7 @@ class NewArticleForm extends Component {
   state = { body: '', title: '', topic: '' };
 
   render() {
+    const { topic } = this.props;
     return (
       <div>
         <Container>
@@ -19,14 +20,17 @@ class NewArticleForm extends Component {
               className="form-control mr-sm-2"
               required
             />
+
             <input
-              placeholder="type article topic here"
+              placeholder={topic ? topic : 'type article topic here'}
               type="text"
               onChange={this.handleChange}
               name="topic"
               className="form-control mr-sm-2"
+              value={topic ? topic : topic}
               required
             />
+
             <input
               placeholder="type your article here"
               type="text"
