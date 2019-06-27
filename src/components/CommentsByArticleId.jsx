@@ -30,7 +30,7 @@ class CommentsByArticleId extends React.Component {
           />
         )}
         <br />
-        {this.state.comments && (
+        {comments.length > 0 && (
           <ul>
             <br />
             {comments.length <= 1 ? (

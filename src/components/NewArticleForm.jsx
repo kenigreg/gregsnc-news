@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { addNewArticle } from './Api';
 import { Container } from 'react-bootstrap';
+import Error from './Error';
 
 class NewArticleForm extends Component {
-  state = { body: '', title: '', topic: '' };
+  state = { body: '', title: '', topic: '', err: null };
 
   render() {
+    const { err } = this.state;
     const { topic } = this.props;
+
+    const msg = err && err.response.data.msg;
+
+    if (err) return <Error msg={msg} />;
+
     return (
       <div>
         <Container>
@@ -66,9 +73,13 @@ class NewArticleForm extends Component {
       title: title,
       topic: topic
     };
-    addNewArticle(articleToPost).then(article => {
-      addArticle(article);
-    });
+    addNewArticle(articleToPost)
+      .then(article => {
+        addArticle(article);
+      })
+      .catch(err => {
+        this.setState({ err });
+      });
   };
 }
 

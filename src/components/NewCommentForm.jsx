@@ -1,10 +1,15 @@
 import React from 'react';
 import { addNewComment } from './Api';
+import Error from './Error';
 
 class NewCommentForm extends React.Component {
-  state = { body: '' };
+  state = { body: '', err: null };
 
   render() {
+    const { err } = this.state;
+    const msg = err && err.response.data.msg;
+
+    if (err) return <Error msg={msg} />;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -30,6 +35,7 @@ class NewCommentForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     const commentToPost = {
       body: this.state.body,
       username: this.props.loggedInUser
@@ -41,7 +47,6 @@ class NewCommentForm extends React.Component {
       .catch(err => {
         this.setState({ err });
       });
-    this.setState({ body: '' });
   };
 }
 

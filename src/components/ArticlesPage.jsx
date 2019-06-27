@@ -3,32 +3,42 @@ import { getArticles, sortArticles } from './Api';
 import ArticleList from './ArticleList';
 import FilterArticleBy from './FilterArticleBy';
 import NewArticleForm from './NewArticleForm';
+import Error from './Error';
 
 class ArticlesPage extends Component {
-  state = { articles: [], sortBy: '' };
+  state = { articles: [], sortBy: '', err: null, err1: null };
 
   componentDidMount() {
-    getArticles().then(articles => {
-      this.setState({ articles });
-    });
+    getArticles()
+      .then(articles => {
+        this.setState({ articles });
+      })
+      .catch(err => {
+        this.setState({ err });
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { sortBy, articles } = this.state;
+    const { sortBy } = this.state;
     if (sortBy !== prevState.sortBy && sortBy) {
-      sortArticles(sortBy).then(articles => {
-        this.setState({ articles });
-      });
-    }
-
-    if (articles !== prevState.articles && articles) {
-      this.setState({ articles });
+      sortArticles(sortBy)
+        .then(articles => {
+          this.setState({ articles });
+        })
+        .catch(err1 => {
+          this.setState({ err1 });
+        });
     }
   }
 
   render() {
-    const { articles } = this.state;
+    const { articles, err, err1 } = this.state;
     const { loggedInUser } = this.props;
+
+    const msg =
+      (err && err.response.data.msg) || (err1 && err1.response.data.msg);
+
+    if (err || err1) return <Error msg={msg} />;
     return (
       <div>
         <br />

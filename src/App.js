@@ -8,18 +8,25 @@ import { Container } from 'react-bootstrap';
 import { getUsername, getTopics } from './components/Api';
 import User from './components/User';
 import ArticlesByTopic from './components/ArticlesByTopic';
+import Error from './components/Error';
 
 class App extends React.Component {
   state = {
     username: 'jessjelly',
     loggedIn: true,
-    topics: []
+    topics: [],
+    err: null,
+    err1: null
   };
 
   componentDidMount() {
-    getTopics().then(topics => {
-      this.setState({ topics });
-    });
+    getTopics()
+      .then(topics => {
+        this.setState({ topics });
+      })
+      .catch(err => {
+        this.setState({ err });
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,8 +37,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { username, topics } = this.state;
+    const { username, topics, err, err1 } = this.state;
     const { userInput } = this.props;
+    const msg =
+      (err && err.response.data.msg) || (err1 && err1.response.data.msg);
+
+    if (err || err1) return <Error msg={msg} />;
 
     return (
       <div className="App">
@@ -52,6 +63,7 @@ class App extends React.Component {
               loggedInUser={username}
             />
             <ArticlesByTopic path={'/topics/:topic'} loggedInUser={username} />
+            <Error default />
           </Router>
         </Container>
       </div>
@@ -61,9 +73,13 @@ class App extends React.Component {
   handleLogIn = userInput => {
     const { loggedIn } = this.state;
     if (loggedIn === false) {
-      getUsername(userInput).then(user => {
-        this.setState({ username: user.username, loggedIn: true });
-      });
+      getUsername(userInput)
+        .then(user => {
+          this.setState({ username: user.username, loggedIn: true });
+        })
+        .catch(err1 => {
+          this.setState({ err1 });
+        });
     }
   };
 

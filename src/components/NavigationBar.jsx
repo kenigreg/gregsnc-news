@@ -39,9 +39,7 @@ class NavigationBar extends React.Component {
               <Link to="/articles">
                 <li className="nav-link">Home</li>
               </Link>
-              <Link to="/articles">
-                <li className="nav-link">Articles</li>
-              </Link>
+
               {topics && (
                 <NavDropdown title="Topics" id="collasible-nav-dropdown">
                   {topics.map((topic, index) => {

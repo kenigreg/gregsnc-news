@@ -23,34 +23,33 @@ class CommentCard extends React.Component {
           </div>
           <div className="card-footer bg-light">
             <p>comment likes: {comment.votes + commentVoteChange}</p>
-            {loggedInUser && (
-              <div className="d-flex justify-content-around">
-                <button
-                  disabled={commentVoteChange === 1}
-                  onClick={() => this.handleVote(1)}
-                  className="btn btn-outline-primary order-1"
-                >
-                  Like
-                </button>
-                <button
-                  disabled={commentVoteChange === -1}
-                  onClick={() => this.handleVote(-1)}
-                  className="btn btn-outline-warning order-3"
-                >
-                  Unlike
-                </button>
 
-                {loggedInUser === comment.author && (
-                  <button
-                    type="submit"
-                    onClick={() => this.handleDelete(comment.comment_id)}
-                    className="btn btn-danger order-2"
-                  >
-                    delete
-                  </button>
-                )}
-              </div>
-            )}
+            <div className="d-flex justify-content-around">
+              <button
+                disabled={commentVoteChange === 1}
+                onClick={() => this.handleVote(1)}
+                className="btn btn-outline-primary order-1"
+              >
+                Like
+              </button>
+              <button
+                disabled={commentVoteChange === -1}
+                onClick={() => this.handleVote(-1)}
+                className="btn btn-outline-warning order-3"
+              >
+                Unlike
+              </button>
+
+              {loggedInUser === comment.author && (
+                <button
+                  type="submit"
+                  onClick={() => this.handleDelete(comment.comment_id)}
+                  className="btn btn-danger order-2"
+                >
+                  delete
+                </button>
+              )}
+            </div>
           </div>
           <br />
         </div>
