@@ -15,7 +15,7 @@ class NewArticleForm extends Component {
     if (err) return <Error msg={msg} />;
 
     return (
-      <div>
+      <div className="d-flex justify-content-center">
         <Container>
           <h4>Add an article</h4>
           <form className="form-inline">
@@ -24,7 +24,7 @@ class NewArticleForm extends Component {
               type="text"
               onChange={this.handleChange}
               name="title"
-              className="form-control mr-sm-2"
+              className="form-control mb-2 mr-sm-2"
               required
             />
 
@@ -33,7 +33,7 @@ class NewArticleForm extends Component {
               type="text"
               onChange={this.handleChange}
               name="topic"
-              className="form-control mr-sm-2"
+              className="form-control mb-2 mr-sm-2"
               value={topic ? topic : topic}
               required
             />
@@ -43,7 +43,7 @@ class NewArticleForm extends Component {
               type="text"
               onChange={this.handleChange}
               name="body"
-              className="form-control mr-sm-2"
+              className="form-control mb-2 mr-sm-2"
               required
             />
             <button

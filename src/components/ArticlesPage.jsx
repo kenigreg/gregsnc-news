@@ -46,6 +46,14 @@ class ArticlesPage extends Component {
         <br />
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
         <br />
+        <br />
+        {loggedInUser && (
+          <NewArticleForm
+            loggedInUser={loggedInUser}
+            addArticle={this.addArticle}
+          />
+        )}
+        <br />
         {articles && (
           <ul>
             <ArticleList articles={articles} />
@@ -58,6 +66,7 @@ class ArticlesPage extends Component {
             addArticle={this.addArticle}
           />
         )}
+        <br />
         <br />
       </div>
     );

@@ -60,6 +60,7 @@ class CommentsByArticleId extends React.Component {
           loggedInUser={loggedInUser}
         />
         <br />
+        <br />
       </div>
     );
   }
