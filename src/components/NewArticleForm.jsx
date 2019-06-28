@@ -17,7 +17,11 @@ class NewArticleForm extends Component {
     return (
       <div className="d-flex justify-content-center">
         <Container>
-          <h4>Add an article</h4>
+          {topic ? (
+            <h4>Add an article on {topic}</h4>
+          ) : (
+            <h4>Add an article on any topic</h4>
+          )}
           <form className="form-inline">
             <input
               placeholder="type article title here"
