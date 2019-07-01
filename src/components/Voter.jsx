@@ -6,15 +6,7 @@ class Voter extends Component {
 
   render() {
     const { voteChange } = this.state;
-    const {
-      votes,
-      type,
-      loggedInUser,
-      handleDelete,
-      article,
-      comment,
-      id
-    } = this.props;
+    const { votes, loggedInUser, handleDelete, id, author } = this.props;
     return (
       <div>
         <h6>Likes: {votes + voteChange}</h6>
@@ -34,25 +26,15 @@ class Voter extends Component {
           >
             Unlike
           </button>
-          {type === 'article'
-            ? loggedInUser === article.author && (
-                <button
-                  type="submit"
-                  onClick={() => handleDelete(id)}
-                  className="btn btn-danger order-2"
-                >
-                  delete
-                </button>
-              )
-            : loggedInUser === comment.author && (
-                <button
-                  type="submit"
-                  onClick={() => handleDelete(id)}
-                  className="btn btn-danger order-2"
-                >
-                  delete
-                </button>
-              )}
+          {loggedInUser === author && (
+            <button
+              type="submit"
+              onClick={() => handleDelete(id)}
+              className="btn btn-danger order-2"
+            >
+              delete
+            </button>
+          )}
         </div>
       </div>
     );

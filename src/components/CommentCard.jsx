@@ -4,7 +4,7 @@ import Voter from './Voter';
 import { deleteComment } from './Api';
 
 const CommentCard = props => {
-  const { comment } = props;
+  const { comment, loggedInUser } = props;
 
   const handleDelete = comment_id => {
     deleteComment(comment_id).then(props.commentToDelete(comment_id));
@@ -29,7 +29,10 @@ const CommentCard = props => {
                 type="comments"
                 id={comment.comment_id}
                 votes={comment.votes}
-                handleDelete={handleDelete(comment.comment_id)}
+                handleDelete={handleDelete}
+                loggedInUser={loggedInUser}
+                comment={comment}
+                author={comment.author}
               />
             </div>
             <br />

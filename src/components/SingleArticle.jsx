@@ -53,6 +53,7 @@ class SingleArticle extends Component {
                   handleDelete={this.handleDelete}
                   article={article}
                   loggedInUser={loggedInUser}
+                  author={article.author}
                 />
               </div>
             </article>
