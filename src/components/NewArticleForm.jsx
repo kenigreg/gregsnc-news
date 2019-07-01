@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { addNewArticle } from './Api';
 import { Container } from 'react-bootstrap';
 import Error from './Error';
+import { navigate } from '@reach/router';
 
 class NewArticleForm extends Component {
   state = { body: '', title: '', topic: '', errArticleForm: null };
 
   render() {
-    const { errArticleForm } = this.state;
+    const { errArticleForm, body, title } = this.state;
     const { topic } = this.props;
 
     const msg = errArticleForm && errArticleForm.response.data.msg;
@@ -26,6 +27,7 @@ class NewArticleForm extends Component {
             <input
               required
               placeholder="type article title here"
+              value={title}
               type="text"
               onChange={this.handleChange}
               name="title"
@@ -49,14 +51,15 @@ class NewArticleForm extends Component {
                 className="form-control mb-2 mr-sm-2 dropdown"
               >
                 <option value="">-- Select a topic --</option>
-                <option value="coding">coding</option>
-                <option value="football">football</option>
-                <option value="cooking">cooking</option>
+                <option value={topic}>coding</option>
+                <option value={topic}>football</option>
+                <option value={topic}>cooking</option>
               </select>
             )}
 
             <input
               placeholder="type your article here"
+              value={body}
               type="text"
               onChange={this.handleChange}
               name="body"
@@ -90,9 +93,12 @@ class NewArticleForm extends Component {
       title: title,
       topic: topic
     };
+    this.setState({ body: '', title: '', topic: '' });
     addNewArticle(articleToPost)
       .then(article => {
-        addArticle(article);
+        addArticle(article).then(() =>
+          navigate(`/articles/${article.article_id}`)
+        );
       })
       .catch(err => {
         this.setState({ err });
