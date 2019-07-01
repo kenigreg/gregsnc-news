@@ -45,14 +45,9 @@ class ArticlesPage extends Component {
         <br />
         <h3 className="text-center">Headlines</h3>
         <br />
+        <br />
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
         <br />
-
-        {articles && (
-          <ul>
-            <ArticleList articles={articles} />
-          </ul>
-        )}
         <br />
         {loggedInUser && (
           <NewArticleForm
@@ -61,6 +56,15 @@ class ArticlesPage extends Component {
           />
         )}
         <br />
+        <br />
+
+        {articles && (
+          <ul>
+            <ArticleList articles={articles} />
+          </ul>
+        )}
+        <br />
+
         <br />
       </div>
     );

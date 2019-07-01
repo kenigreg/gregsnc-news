@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { addNewArticle } from './Api';
 import { Container } from 'react-bootstrap';
 import Error from './Error';
-import { navigate } from '@reach/router';
+//import { navigate } from '@reach/router';
 
 class NewArticleForm extends Component {
   state = { body: '', title: '', topic: '', errArticleForm: null };
@@ -96,9 +96,7 @@ class NewArticleForm extends Component {
     this.setState({ body: '', title: '', topic: '' });
     addNewArticle(articleToPost)
       .then(article => {
-        addArticle(article).then(() =>
-          navigate(`/articles/${article.article_id}`)
-        );
+        addArticle(article);
       })
       .catch(err => {
         this.setState({ err });
@@ -108,4 +106,6 @@ class NewArticleForm extends Component {
 
 export default NewArticleForm;
 
-//.then(() => navigate(`/articles/${articleId}`));
+// .then(article_id =>
+//   navigate(`/articles/:${article_id}`)
+// );
