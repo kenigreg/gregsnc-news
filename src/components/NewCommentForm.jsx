@@ -3,13 +3,13 @@ import { addNewComment } from './Api';
 import Error from './Error';
 
 class NewCommentForm extends React.Component {
-  state = { body: '', err: null };
+  state = { body: '', errComment: null };
 
   render() {
-    const { err } = this.state;
-    const msg = err && err.response.data.msg;
+    const { errComment } = this.state;
+    const msg = errComment && errComment.response.data.msg;
 
-    if (err) return <Error msg={msg} />;
+    if (errComment) return <Error msg={msg} />;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>

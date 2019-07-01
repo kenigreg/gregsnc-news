@@ -15,8 +15,8 @@ class App extends React.Component {
     username: 'jessjelly',
     loggedIn: true,
     topics: [],
-    err: null,
-    err1: null
+    errTopic: null,
+    errUsername: null
   };
 
   componentDidMount() {
@@ -24,8 +24,8 @@ class App extends React.Component {
       .then(topics => {
         this.setState({ topics });
       })
-      .catch(err => {
-        this.setState({ err });
+      .catch(errTopic => {
+        this.setState({ errTopic });
       });
   }
 
@@ -37,12 +37,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { username, topics, err, err1 } = this.state;
+    const { username, topics, errTopic, errUsername } = this.state;
     const { userInput } = this.props;
     const msg =
-      (err && err.response.data.msg) || (err1 && err1.response.data.msg);
+      (errTopic && errTopic.response.data.msg) ||
+      (errUsername && errUsername.response.data.msg);
 
-    if (err || err1) return <Error msg={msg} />;
+    if (errTopic || errUsername) return <Error msg={msg} />;
 
     return (
       <div className="App">
@@ -62,7 +63,11 @@ class App extends React.Component {
               path="/articles/:article_id"
               loggedInUser={username}
             />
-            <ArticlesByTopic path={'/topics/:topic'} loggedInUser={username} />
+            <ArticlesByTopic
+              path={'/topics/:topic'}
+              loggedInUser={username}
+              topics={topics}
+            />
             <Error default />
           </Router>
         </Container>
@@ -77,8 +82,8 @@ class App extends React.Component {
         .then(user => {
           this.setState({ username: user.username, loggedIn: true });
         })
-        .catch(err1 => {
-          this.setState({ err1 });
+        .catch(errUsername => {
+          this.setState({ errUsername });
         });
     }
   };

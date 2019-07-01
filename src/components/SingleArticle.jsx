@@ -5,9 +5,10 @@ import CommentsByArticleId from './CommentsByArticleId';
 import { Container } from 'react-bootstrap';
 import { navigate } from '@reach/router';
 import Error from './Error';
+import Voter from './Voter';
 
 class SingleArticle extends Component {
-  state = { article: {}, voteChange: 0, err: null };
+  state = { article: {}, errSingleArticle: null };
 
   componentDidMount() {
     const { article_id } = this.props;
@@ -15,23 +16,23 @@ class SingleArticle extends Component {
       .then(article => {
         this.setState({ article });
       })
-      .catch(err => {
-        this.setState({ err });
+      .catch(errSingleArticle => {
+        this.setState({ errSingleArticle });
       });
   }
 
   render() {
-    const { article, voteChange, err } = this.state;
+    const { article, errSingleArticle } = this.state;
     const { loggedInUser, article_id } = this.props;
 
-    const msg = err && err.response.data.msg;
+    const msg = errSingleArticle && errSingleArticle.response.data.msg;
 
-    if (err) return <Error msg={msg} article_id={article_id} />;
+    if (errSingleArticle) return <Error msg={msg} article_id={article_id} />;
     return (
       <div>
         <Container>
           <br />
-          {this.state.article && (
+          {article && (
             <article className="card border-dark mb-3">
               <div className="card-header">
                 <h4>Title: {article.title}</h4>
@@ -45,37 +46,14 @@ class SingleArticle extends Component {
                 <p>{article.body}</p>
               </div>
               <div className="card-footer">
-                <h6>Article likes: {article.votes + voteChange}</h6>
-                <br />
-
-                <div className="d-flex justify-content-around">
-                  <button
-                    disabled={voteChange === 1}
-                    onClick={() => this.handleVote(1)}
-                    type="button"
-                    className="btn btn-outline-primary order-1"
-                  >
-                    upvote
-                  </button>
-                  <button
-                    disabled={voteChange === -1}
-                    onClick={() => this.handleVote(-1)}
-                    type="button"
-                    className="btn btn-outline-warning order-3"
-                  >
-                    downvote
-                  </button>
-
-                  {loggedInUser === article.author && (
-                    <button
-                      type="submit"
-                      onClick={() => this.handleDelete(article.article_id)}
-                      className="btn btn-danger order-2"
-                    >
-                      delete
-                    </button>
-                  )}
-                </div>
+                <Voter
+                  type="article"
+                  id={article_id}
+                  votes={article.votes}
+                  handleDelete={this.handleDelete}
+                  article={article}
+                  loggedInUser={loggedInUser}
+                />
               </div>
             </article>
           )}

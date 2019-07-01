@@ -4,15 +4,15 @@ import { Container } from 'react-bootstrap';
 import Error from './Error';
 
 class NewArticleForm extends Component {
-  state = { body: '', title: '', topic: '', err: null };
+  state = { body: '', title: '', topic: '', errArticleForm: null };
 
   render() {
-    const { err } = this.state;
+    const { errArticleForm } = this.state;
     const { topic } = this.props;
 
-    const msg = err && err.response.data.msg;
+    const msg = errArticleForm && errArticleForm.response.data.msg;
 
-    if (err) return <Error msg={msg} />;
+    if (errArticleForm) return <Error msg={msg} />;
 
     return (
       <div className="d-flex justify-content-center">
@@ -24,23 +24,36 @@ class NewArticleForm extends Component {
           )}
           <form className="form-inline">
             <input
+              required
               placeholder="type article title here"
               type="text"
               onChange={this.handleChange}
               name="title"
               className="form-control mb-2 mr-sm-2"
-              required
             />
 
-            <input
-              placeholder={topic ? topic : 'type article topic here'}
-              type="text"
-              onChange={this.handleChange}
-              name="topic"
-              className="form-control mb-2 mr-sm-2"
-              value={topic ? topic : topic}
-              required
-            />
+            {topic ? (
+              <input
+                required
+                placeholder={topic}
+                type="text"
+                onChange={this.handleChange}
+                name="topic"
+                className="form-control mb-2 mr-sm-2"
+                value={topic}
+              />
+            ) : (
+              <select
+                onChange={this.handleChange}
+                name="topic"
+                className="form-control mb-2 mr-sm-2 dropdown"
+              >
+                <option value="">-- Select a topic --</option>
+                <option value="coding">coding</option>
+                <option value="football">football</option>
+                <option value="cooking">cooking</option>
+              </select>
+            )}
 
             <input
               placeholder="type your article here"
@@ -88,3 +101,5 @@ class NewArticleForm extends Component {
 }
 
 export default NewArticleForm;
+
+//.then(() => navigate(`/articles/${articleId}`));

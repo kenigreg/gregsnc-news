@@ -14,6 +14,10 @@ The back-end of the app was done in ExpressJS; Database in PostgreSql, while the
 
 To run this app locally, you will need to clone the repository from GitHub to your local machine. Follow the instructions below:
 
+### Install Node
+
+You will need to install node to run the app locally [https://nodejs.org/en/download/](https://nodejs.org/en/download/).
+
 In the project directory, you can run:
 
 ### `npm start`
@@ -24,22 +28,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about `deployment` for more information.
-
 ### Links to the Repo
 
-Front-end: https://github.com/kenigreg/gregsnc-news;<br>
-Back-end: https://github.com/kenigreg/NC_News;<br>
+#### Front-end
+
+GitHub: https://github.com/kenigreg/gregsnc-news;<br>
+Hosted version on Netlify: https://gregsncnews.netlify.com;<br>
+
+#### Back-end
+
+GitHub: https://github.com/kenigreg/NC_News;<br>
 API: <br>
 
 ## Deployment
 
-The NC News Front End was deployed with Netlify
+The NC News Front End was deployed with Netlify. Link to the live deployed version [https://gregsncnews.netlify.com](https://gregsncnews.netlify.com).

@@ -3,7 +3,7 @@ import { getUsers } from './Api';
 import Error from './Error';
 
 class User extends Component {
-  state = { user: '', err: null };
+  state = { user: '', errUser: null };
 
   componentDidMount() {
     const { loggedInUser } = this.props;
@@ -23,10 +23,10 @@ class User extends Component {
   }
 
   render() {
-    const { user, err } = this.state;
-    const msg = err && err.response.data.msg;
+    const { user, errUser } = this.state;
+    const msg = errUser && errUser.response.data.msg;
 
-    if (err) return <Error msg={msg} />;
+    if (errUser) return <Error msg={msg} />;
     return (
       <div className="card bg-light border-dark mb-4">
         {user && (

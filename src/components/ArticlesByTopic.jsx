@@ -6,7 +6,13 @@ import NewArticleForm from './NewArticleForm';
 import Error from './Error';
 
 class ArticlesByTopic extends React.Component {
-  state = { articles: [], sortBy: '', err: null, err1: null, err2: null };
+  state = {
+    articles: [],
+    sortBy: '',
+    errTopic: null,
+    errTopicUpdate: null,
+    errSortby: null
+  };
 
   componentDidMount() {
     const { topic } = this.props;
@@ -15,8 +21,8 @@ class ArticlesByTopic extends React.Component {
       .then(articles => {
         this.setState({ articles });
       })
-      .catch(err => {
-        this.setState({ err });
+      .catch(errTopic => {
+        this.setState({ errTopic });
       });
   }
 
@@ -29,8 +35,8 @@ class ArticlesByTopic extends React.Component {
         .then(articles => {
           this.setState({ articles });
         })
-        .catch(err1 => {
-          this.setState({ err1 });
+        .catch(errTopicUpdate => {
+          this.setState({ errTopicUpdate });
         });
     }
     if (this.state.sortBy !== prevState.sortBy && this.state.sortBy) {
@@ -38,22 +44,23 @@ class ArticlesByTopic extends React.Component {
         .then(articles => {
           this.setState({ articles });
         })
-        .catch(err2 => {
-          this.setState({ err2 });
+        .catch(errSortby => {
+          this.setState({ errSortby });
         });
     }
   }
 
   render() {
-    const { articles, err, err1, err2 } = this.state;
-    const { loggedInUser, topic } = this.props;
+    const { articles, errTopic, errTopicUpdate, errSortby } = this.state;
+    const { loggedInUser, topic, topics } = this.props;
 
     const msg =
-      (err && err.response.data.msg) ||
-      (err1 && err1.response.data.msg) ||
-      (err2 && err2.response.data.msg);
+      (errTopic && errTopic.response.data.msg) ||
+      (errTopicUpdate && errTopicUpdate.response.data.msg) ||
+      (errSortby && errSortby.response.data.msg);
 
-    if (err || err1 || err2) return <Error msg={msg} />;
+    if (errTopic || errTopicUpdate || errSortby)
+      return <Error msg={msg} topics={topics} />;
     return (
       <div>
         <FilterArticleBy articles={articles} onChange={this.handleChange} />

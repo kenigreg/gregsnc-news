@@ -39,9 +39,9 @@ class CommentsByArticleId extends React.Component {
               <h5>{comments.length} comments</h5>
             )}
 
-            {comments.map((comment, index) => {
+            {comments.map(comment => {
               return (
-                <div key={'C' + index}>
+                <div key={comment.comment_id}>
                   <CommentCard
                     comment={comment}
                     comment_id={comment_id}
@@ -54,11 +54,7 @@ class CommentsByArticleId extends React.Component {
             })}
           </ul>
         )}
-        <NewCommentForm
-          addComment={this.addComment}
-          article_id={articleId}
-          loggedInUser={loggedInUser}
-        />
+
         <br />
         <br />
       </div>

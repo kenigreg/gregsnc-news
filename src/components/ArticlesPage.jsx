@@ -3,18 +3,19 @@ import { getArticles, sortArticles } from './Api';
 import ArticleList from './ArticleList';
 import FilterArticleBy from './FilterArticleBy';
 import NewArticleForm from './NewArticleForm';
+
 import Error from './Error';
 
 class ArticlesPage extends Component {
-  state = { articles: [], sortBy: '', err: null, err1: null };
+  state = { articles: [], sortBy: '', errAticles: null, errSortby: null };
 
   componentDidMount() {
     getArticles()
       .then(articles => {
         this.setState({ articles });
       })
-      .catch(err => {
-        this.setState({ err });
+      .catch(errAticles => {
+        this.setState({ errAticles });
       });
   }
 
@@ -25,8 +26,8 @@ class ArticlesPage extends Component {
         .then(articles => {
           this.setState({ articles });
         })
-        .catch(err1 => {
-          this.setState({ err1 });
+        .catch(errSortby => {
+          this.setState({ errSortby });
         });
     }
   }
@@ -40,20 +41,13 @@ class ArticlesPage extends Component {
 
     if (err || err1) return <Error msg={msg} />;
     return (
-      <div>
+      <div className="m-auto">
         <br />
         <h3 className="text-center">Headlines</h3>
         <br />
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
         <br />
-        <br />
-        {loggedInUser && (
-          <NewArticleForm
-            loggedInUser={loggedInUser}
-            addArticle={this.addArticle}
-          />
-        )}
-        <br />
+
         {articles && (
           <ul>
             <ArticleList articles={articles} />

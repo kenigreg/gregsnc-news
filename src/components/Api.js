@@ -41,8 +41,8 @@ export const addNewArticle = articleToPost => {
   });
 };
 
-export const patchArticleVotes = (article_id, direction) => {
-  const myUrl = `https://gregs-ncnews.herokuapp.com/api/articles/${article_id}`;
+export const patchArticleVotes = (id, direction) => {
+  const myUrl = `https://gregs-ncnews.herokuapp.com/api/articles/${id}`;
 
   return axios
     .patch(myUrl, { inc_votes: direction })
@@ -66,8 +66,8 @@ export const deleteComment = comment_id => {
   });
 };
 
-export const patchComment = (comment_id, direction) => {
-  const url = `https://gregs-ncnews.herokuapp.com/api/comments/${comment_id}`;
+export const patchComment = (id, direction) => {
+  const url = `https://gregs-ncnews.herokuapp.com/api/comments/${id}`;
 
   return axios
     .patch(url, { inc_votes: direction })
