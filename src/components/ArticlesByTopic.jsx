@@ -65,18 +65,18 @@ class ArticlesByTopic extends React.Component {
       <div>
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
         <br />
-        {articles && (
-          <ul>
-            <ArticleList articles={this.state.articles} />
-          </ul>
-        )}
-        <br />
         {loggedInUser && (
           <NewArticleForm
             loggedInUser={loggedInUser}
             addArticle={this.addArticle}
             topic={topic}
           />
+        )}
+        <br />
+        {articles && (
+          <ul>
+            <ArticleList articles={this.state.articles} />
+          </ul>
         )}
         <br />
       </div>

@@ -42,10 +42,9 @@ class ArticlesPage extends Component {
     if (err || err1) return <Error msg={msg} />;
     return (
       <div className="m-auto">
-        <br />
         <h3 className="text-center">Headlines</h3>
         <br />
-        <br />
+
         <FilterArticleBy articles={articles} onChange={this.handleChange} />
         <br />
         <br />
