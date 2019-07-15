@@ -23,53 +23,74 @@ class NewArticleForm extends Component {
           ) : (
             <h4>Add an article on any topic</h4>
           )}
-          <form className="form-inline">
-            <input
-              required
-              placeholder="type article title here"
-              value={title}
-              type="text"
-              onChange={this.handleChange}
-              name="title"
-              className="form-control mb-2 mr-sm-2"
-            />
 
+          <form>
+            <div className="form-row">
+              <div className="col-md-4 mb-3">
+                <label>Title</label>
+                <input
+                  placeholder="type article title here"
+                  value={title}
+                  type="text"
+                  onChange={this.handleChange}
+                  name="title"
+                  className="form-control"
+                  required
+                />
+              </div>
+            </div>
             {topic ? (
-              <input
-                required
-                placeholder={topic}
-                type="text"
-                onChange={this.handleChange}
-                name="topic"
-                className="form-control mb-2 mr-sm-2"
-                value={topic}
-              />
+              <>
+                <div className="form-row">
+                  <div className="col-md-4 mb-3">
+                    <label>Topic</label>
+                    <input
+                      placeholder={topic}
+                      type="text"
+                      onChange={this.handleChange}
+                      name="topic"
+                      className="form-control"
+                      value={topic}
+                      required
+                    />
+                  </div>
+                </div>
+              </>
             ) : (
-              <select
-                onChange={this.handleChange}
-                name="topic"
-                className="form-control mb-2 mr-sm-2 dropdown"
-              >
-                <option value="">-- Select a topic --</option>
-                <option value={topic}>coding</option>
-                <option value={topic}>football</option>
-                <option value={topic}>cooking</option>
-              </select>
+              <div className="form-group">
+                <div className="col-md-4 mb-3">
+                  <select
+                    onChange={this.handleChange}
+                    name="topic"
+                    className="custom-select"
+                    required
+                  >
+                    <option value="">-- Select a topic --</option>
+                    <option value={topic}>coding</option>
+                    <option value={topic}>football</option>
+                    <option value={topic}>cooking</option>
+                  </select>
+                </div>
+              </div>
             )}
-
-            <input
-              placeholder="type your article here"
-              value={body}
-              type="text"
-              onChange={this.handleChange}
-              name="body"
-              className="form-control mb-2 mr-sm-2"
-              required
-            />
+            <div className="form-row">
+              <div className="col-md-4 mb-3">
+                <label>Article body</label>
+                <input
+                  placeholder="type your article here"
+                  value={body}
+                  type="text"
+                  onChange={this.handleChange}
+                  name="body"
+                  className="form-control"
+                  required
+                />
+              </div>
+            </div>
             <button
               type="button"
               className="btn btn-outline-success"
-              onClick={this.handleSubmit}
+              onClick={this.handleClick}
             >
               Submit
             </button>
@@ -78,11 +99,12 @@ class NewArticleForm extends Component {
       </div>
     );
   }
+
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = event => {
+  handleClick = event => {
     const { loggedInUser, addArticle } = this.props;
     const { body, title, topic } = this.state;
 
@@ -93,15 +115,17 @@ class NewArticleForm extends Component {
       title: title,
       topic: topic
     };
-    this.setState({ body: '', title: '', topic: '' });
-    addNewArticle(articleToPost)
-      .then(article => {
-        addArticle(article);
-        navigate(`/articles/${article.article_id}`);
-      })
-      .catch(err => {
-        this.setState({ err });
-      });
+    if (title && body && topic) {
+      addNewArticle(articleToPost)
+        .then(article => {
+          addArticle(article);
+          navigate(`/articles/${article.article_id}`);
+        })
+        .catch(err => {
+          this.setState({ err });
+        });
+      this.setState({ body: '', title: '', topic: '' });
+    }
   };
 }
 

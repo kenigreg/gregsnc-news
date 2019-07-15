@@ -10,6 +10,10 @@ The front-end has been built on ReactJS, with styling done with React-Bootstrap.
 
 The back-end of the app was done in ExpressJS; Database in PostgreSql, while the seeding was done with KnexJS.
 
+## Deployment
+
+The NC News Front End was deployed with Netlify. Link to the live deployed version [https://gregsncnews.netlify.com](https://gregsncnews.netlify.com).
+
 ## Instructions
 
 To run this app locally, you will need to clone the repository from GitHub to your local machine. Follow the instructions below:
@@ -38,8 +42,4 @@ Hosted version on Netlify: https://gregsncnews.netlify.com;<br>
 #### Back-end
 
 GitHub: https://github.com/kenigreg/NC_News;<br>
-API: <br>
-
-## Deployment
-
-The NC News Front End was deployed with Netlify. Link to the live deployed version [https://gregsncnews.netlify.com](https://gregsncnews.netlify.com).
+API: https://gregs-ncnews.herokuapp.com/api;<br>

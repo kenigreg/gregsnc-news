@@ -52,15 +52,14 @@ class ArticlesByTopic extends React.Component {
 
   render() {
     const { articles, errTopic, errTopicUpdate, errSortby } = this.state;
-    const { loggedInUser, topic, topics } = this.props;
+    const { loggedInUser, topic } = this.props;
 
     const msg =
       (errTopic && errTopic.response.data.msg) ||
       (errTopicUpdate && errTopicUpdate.response.data.msg) ||
       (errSortby && errSortby.response.data.msg);
 
-    if (errTopic || errTopicUpdate || errSortby)
-      return <Error msg={msg} topics={topics} />;
+    if (errTopic || errTopicUpdate || errSortby) return <Error msg={msg} />;
     return (
       <div>
         <FilterArticleBy articles={articles} onChange={this.handleChange} />

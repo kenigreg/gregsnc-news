@@ -27,7 +27,7 @@ class SingleArticle extends Component {
 
     const msg = errSingleArticle && errSingleArticle.response.data.msg;
 
-    if (errSingleArticle) return <Error msg={msg} article_id={article_id} />;
+    if (errSingleArticle) return <Error msg={msg} />;
     return (
       <div>
         <Container>

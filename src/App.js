@@ -9,6 +9,7 @@ import { getUsername, getTopics } from './components/Api';
 import User from './components/User';
 import ArticlesByTopic from './components/ArticlesByTopic';
 import Error from './components/Error';
+import Home from './components/Home';
 
 class App extends React.Component {
   state = {
@@ -37,13 +38,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { username, topics, errTopic, errUsername } = this.state;
+    const { username, topics, errTopic } = this.state;
     const { userInput } = this.props;
-    const msg =
-      (errTopic && errTopic.response.data.msg) ||
-      (errUsername && errUsername.response.data.msg);
+    const msg = errTopic && errTopic.response.data.msg;
 
-    if (errTopic || errUsername) return <Error msg={msg} />;
+    if (errTopic) return <Error msg={msg} />;
 
     return (
       <div className="App">
@@ -58,6 +57,7 @@ class App extends React.Component {
         <Container>
           <User loggedInUser={username} />
           <Router>
+            <Home path="/" />
             <ArticlesPage path="/articles" loggedInUser={username} />
             <SingleArticle
               path="/articles/:article_id"
@@ -78,13 +78,9 @@ class App extends React.Component {
   handleLogIn = userInput => {
     const { loggedIn } = this.state;
     if (loggedIn === false) {
-      getUsername(userInput)
-        .then(user => {
-          this.setState({ username: user.username, loggedIn: true });
-        })
-        .catch(errUsername => {
-          this.setState({ errUsername });
-        });
+      getUsername(userInput).then(user => {
+        this.setState({ username: user.username, loggedIn: true });
+      });
     }
   };
 

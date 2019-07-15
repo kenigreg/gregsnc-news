@@ -5,8 +5,8 @@ import {
   Navbar,
   NavDropdown,
   Form,
-  Button,
   FormControl,
+  Button,
   InputGroup
 } from 'react-bootstrap';
 import NClogo from '../assets/NClogo.jpg';
@@ -21,7 +21,7 @@ class NavigationBar extends React.Component {
     return (
       <>
         <Navbar collapseOnSelect bg="light" expand="lg">
-          <Link to="/articles">
+          <Link to="/">
             <Navbar.Brand>
               <img
                 alt="NCLogo"
@@ -36,8 +36,11 @@ class NavigationBar extends React.Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Link to="/articles">
+              <Link to="/">
                 <li className="nav-link">Home</li>
+              </Link>
+              <Link to="/articles">
+                <li className="nav-link">Articles</li>
               </Link>
 
               {topics && (
@@ -69,6 +72,8 @@ class NavigationBar extends React.Component {
                   aria-describedby="basic-addon1"
                   className="mr-sm-2"
                   onChange={this.handleUserName}
+                  defaultValue="jessjelly"
+                  required
                 />
 
                 <Button
